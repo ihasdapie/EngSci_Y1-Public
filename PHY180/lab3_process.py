@@ -61,7 +61,7 @@ n_period = nbt[0][pn]
 n_period = np.array([n_period[i]-n_period[i-1] for i in range(1, len(n_period))])
 
 
-n_time_err = np.array([time_err for i in range(len(n_amp))]) # this is ugly
+n_time_err = np.array([time_err for i in range(len(n_amp))]) # this is ugly but I forgot the proper numpy syntax...
 n_amp_err = np.array([amp_err for i in range(len(n_period))])
 
 # plot period vs amp for minima 
