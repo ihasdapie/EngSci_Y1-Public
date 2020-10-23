@@ -11,8 +11,12 @@ f = open('finaldata.csv') # your data file name
 # just change it in the .split() on line 15 to whatever you used
 # amp. doesn't have to be in radians but should cross the x-axis
 
+# edit this error to whatever you have...
+
 amp_err = 0.0117453 # 1 degree
-time_err = 0.016666 # 1 frame
+time_err = 0.016666 # 1 frame 
+
+
 
 
 b = f.readlines()
