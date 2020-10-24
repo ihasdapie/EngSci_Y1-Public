@@ -14,10 +14,7 @@ f = open('finaldata.csv') # your data file name
 # edit this error to whatever you have...
 
 amp_err = 0.0117453 # 1 degree
-time_err = 0.016666 # 1 frame 
-
-
-
+time_err = 0.03222 # 2 frames 
 
 b = f.readlines()
 f.close()
@@ -67,7 +64,8 @@ n_time_err = np.array([time_err for i in range(len(n_amp))]) # this is ugly but 
 n_amp_err = np.array([amp_err for i in range(len(n_period))])
 
 # plot period vs amp for minima 
-plt.errorbar(n_amp, n_period, yerr=  n_time_err, xerr = n_amp_err, fmt='.')
+plt.errorbar(n_amp, n_period, yerr=  n_time_err, xerr = n_amp_err, ecolor='cyan', fmt='.')
+
 plt.xlabel("Amplitude, θ")
 plt.ylabel("Period, T")
 plt.title("Period vs Amplitude")
@@ -75,12 +73,33 @@ plt.show()
 
 
 # plot period vs amp for maxima
-plt.errorbar(p_amp, p_period, yerr=  p_time_err, xerr = p_amp_err, fmt='.')
+plt.errorbar(p_amp, p_period, yerr=  p_time_err, xerr = p_amp_err, ecolor='cyan', fmt='.')
 plt.xlabel("Amplitude, θ")
 plt.ylabel("Period, T")
 plt.title("Period vs Amplitude")
 plt.show()
 
+
+# make polyfit
+# this one is for n-amplitudes, change it around for postive ones
+
+# change that number for the nth power series that you want to fit to...
+# This will GROSSLY overfit for n>~4ish because of all the rounding errors
+# in the data and the narrow spectrum it covers
+# You will only need n=1 for (b, a) or n=2 for (c, b, a)
+
+pfit = np.polyfit(n_amp, n_period, 2) #<- this number is n_terms + 1!
+
+
+pfunc = np.poly1d(pfit)
+x = np.arange(min(n_amp), max(n_amp), ((max(n_amp)-min(n_amp))/1000))
+print(pfit) # coefficents, ax^n + bx^n-1.... +c
+plt.xlabel("Amplitude, θ")
+plt.errorbar(n_amp, n_period, yerr=  n_time_err, xerr = n_amp_err,ecolor='cyan', fmt='.')
+plt.plot(x, pfunc(x))
+plt.ylabel("Period, T")
+plt.title("Period vs Amplitude w/ power series regression line")
+plt.show()
 
 # uncomment in order to get your data in csv format
 
