@@ -20,6 +20,8 @@ time_err = 0.016666 # 1 frame
 
 
 b = f.readlines()
+f.close()
+
 b = [i.strip().split(', ') for i in b]
 
 # yes, we are comparing floats
@@ -80,16 +82,21 @@ plt.title("Period vs Amplitude")
 plt.show()
 
 
+# uncomment in order to get your data in csv format
 
+# f=open("n_data.csv", "w+")
+# for i, j in enumerate(n_period):
+#     f.write(str(j)+", "+str(n_amp[i])+"\n")
+# f.close()
+
+# f=open("p_data.csv", "w+")
+# for i, j in enumerate(p_period):
+#     f.write(str(j)+", "+str(p_amp[i])+"\n")
+# f.close()
 
 # Note that if you used tracker data and had time in (1/60)s like me, 
 # your graph period v. amp will have distinct horz. bars of data
 # This is because of rounding error and you should see that
 # whatever varience in there is experimentally zero.
-
-
-
-
-
 
 
